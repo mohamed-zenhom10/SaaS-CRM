@@ -5,11 +5,15 @@ import { IoSearchSharp } from "react-icons/io5";
 import { FaBell } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
 import default_user_img from "../assets/images/default-user.jpg";
+import { FaBars } from "react-icons/fa";
+
 
 const Navbar = () => {
   const [serach, setSearch] = useState("");
 
   const [userData, setUserData] = useState();
+
+  const [displaySearch , setDisplaySearch] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -19,7 +23,7 @@ const Navbar = () => {
   }, []);
   return (
     <header className="header">
-      <div className="input">
+      <div className={`input ${displaySearch ? "display" : ""}`}>
         <IoSearchSharp />
         <input
           type="text"
@@ -35,6 +39,9 @@ const Navbar = () => {
           </div>
           <div className="icon">
             <IoSettings />
+          </div>
+          <div className="icon bar">
+            <FaBars onClick={() => setDisplaySearch(!displaySearch)}/>
           </div>
         </div>
         <div className="user">

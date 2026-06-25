@@ -400,7 +400,7 @@ const Clients = () => {
           <div>
             <p className="clients-page__eyebrow">CRM Workspace</p>
             <h1>Clients</h1>
-            <p>
+            <p className="qoute">
               Keep your client relationships, contact details, and project value
               organized.
             </p>
