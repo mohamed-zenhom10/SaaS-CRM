@@ -122,3 +122,23 @@ export const projectValidationSchema = Yup.object({
 
   client: Yup.string().required("Please select a client."),
 });
+
+export const taskValidationSchema = Yup.object({
+  title: Yup.string()
+    .trim()
+    .min(5, "Task title must be at least 5 characters.")
+    .max(30, "Task title cannot be longer than 30 characters.")
+    .required("Task title is required."),
+
+  description: Yup.string()
+    .trim()
+    .min(10, "Description must be at least 10 characters.")
+    .max(50, "Description cannot be longer than 50 characters.")
+    .required("Task description is required."),
+
+  project: Yup.string().required("Please select a related project."),
+
+  deadline: Yup.date()
+    .min(getToday(), "Deadline cannot be in the past.")
+    .required("Please choose a deadline."),
+});

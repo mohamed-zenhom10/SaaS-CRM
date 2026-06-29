@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/purity */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/set-state-in-effect */
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { FaPen } from "react-icons/fa";
@@ -23,7 +21,6 @@ const Profile = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imageUploading, setImageUploading] = useState(false);
-  const [imageTimestamp, setImageTimestamp] = useState(Date.now());
 
   const navigate = useNavigate();
 
@@ -258,7 +255,6 @@ const Profile = () => {
 
       setPreviewImage("");
       setImageFile(null);
-      setImageTimestamp(Date.now());
 
       success("Image uploaded successfully");
     } catch (error) {
@@ -269,40 +265,24 @@ const Profile = () => {
     }
   };
 
-  const getImageUrl = () => {
-    if (previewImage) {
-      return previewImage;
-    }
 
-    if (userData?.profileImage) {
-      const imagePath = userData.profileImage;
-
-      if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-        return imagePath;
-      }
-
-      if (imagePath.startsWith("/")) {
-        return `http://localhost:5000${imagePath}?t=${imageTimestamp}`;
-      }
-
-      return `http://localhost:5000/images/${imagePath}?t=${imageTimestamp}`;
-    }
-
-    return user_profile_image;
-  };
 
   return (
     <section className="profile">
       <div className="container">
         <div className="title">
-          <h1>Account Settings</h1>
+          <h1>Your Profile</h1>
           <p>Update your personal details and account preferences.</p>
         </div>
+
         <div className="image-box">
           <div>
             <div className="image">
               <div className="img-box">
-                <img src={getImageUrl()} alt="user image" />
+                <img
+                  src={`${userData?.profileImage ? `http://localhost:5000/images/${userData.profileImage}` : `${user_profile_image}`}`}
+                  alt="user image"
+                />
                 <label htmlFor="profile-image">
                   <FaPen />
                 </label>
@@ -334,10 +314,12 @@ const Profile = () => {
             <PersonalDataFrom personalInfo={personalInfo} />
           </div>
         </div>
+
         <div className="change-password">
           <h1 className="profile-title">Change Password</h1>
           <PasswordForm passwordInfo={passwordInfo} />
         </div>
+
         <div className="delete-account">
           <div>
             <h4>Delete Account</h4>

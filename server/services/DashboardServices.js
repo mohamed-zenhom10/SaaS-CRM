@@ -20,6 +20,8 @@ const DashboardData = async (req, res, next) => {
       pendingProjects,
       revenueResult,
       pendingPaymentResult,
+      recentInvoices,
+      upcomingDeadlines,
     ] = await Promise.all([
       ClientModel.countDocuments(userFilter),
 
@@ -54,7 +56,6 @@ const DashboardData = async (req, res, next) => {
         status: "pending",
       }),
 
-      // Total revenue (paid invoices)
       InvoiceModel.aggregate([
         {
           $match: {
@@ -72,7 +73,6 @@ const DashboardData = async (req, res, next) => {
         },
       ]),
 
-      // Money waiting to be paid
       InvoiceModel.aggregate([
         {
           $match: {
@@ -89,6 +89,17 @@ const DashboardData = async (req, res, next) => {
           },
         },
       ]),
+      InvoiceModel.find(userFilter)
+        .populate("client", "name")
+        .populate("project", "title")
+        .sort({ createdAt: -1 })
+        .limit(4)
+        .lean(),
+      TaskModel.find({ ...userFilter, status: { $ne: "completed" } })
+        .populate("project", "title")
+        .sort({ deadline: 1 })
+        .limit(4)
+        .lean(),
     ]);
 
     const totalRevenue = revenueResult[0]?.totalRevenue || 0;
@@ -108,6 +119,8 @@ const DashboardData = async (req, res, next) => {
         pendingProjects,
         totalRevenue,
         pendingPayments,
+        recentInvoices,
+        upcomingDeadlines,
       },
     });
   } catch (error) {

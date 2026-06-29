@@ -1,7 +1,6 @@
-/* Projects.css */
 .projects-page {
   padding: 2rem 0;
-  background: var(--color-background);
+  background: #f8f9ff;
 }
 
 .projects-page__header {
@@ -76,6 +75,25 @@
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.projects-toolbar .projects-search {
+  position: relative;
+  width: 200px;
+  height: 30px;
+  background-color: red;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.projects-toolbar input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--color-border-dark);
+  padding: 10px;
 }
 
 .project-select {

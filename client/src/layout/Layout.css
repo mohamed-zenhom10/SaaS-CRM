@@ -27,6 +27,7 @@
   grid-column: 2;
   grid-row: 2;
   overflow: auto;
+  background-color: #f8f9ff;
 }
 
 .layout .sidebar .sidebar-header {
@@ -48,7 +49,7 @@
   border-radius: var(--radius-md);
 }
 
-.layout .sidebar .sidebar-header .close  svg {
+.layout .sidebar .sidebar-header .close svg {
   font-size: 25px;
 }
 
@@ -307,5 +308,12 @@
   }
   .layout .sidebar .sidebar-header .close {
     display: block;
+  }
+}
+
+@media (max-width: 468px) {
+  .layout .header .data .user .user-img {
+    width: 40px;
+    height: 40px;
   }
 }

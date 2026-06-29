@@ -8,6 +8,9 @@ import { MdChecklist } from "react-icons/md";
 import { FaMoneyBillAlt } from "react-icons/fa";
 import DashboardGraph from "../../components/DashboardGraph";
 import DashboardTasks from "../../components/DashboardTasks";
+import { useNavigate } from "react-router-dom";
+import RecentInvoices from "../../components/RecentInvoices";
+import Deadlines from "../../components/Deadlines";
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -21,9 +24,12 @@ const Dashboard = () => {
     completedProjects: 0,
     pendingProjects: 0,
     totalRevenue: 0,
-    pendingPayments: 0
+    pendingPayments: 0,
+    recentInvoices: [],
+    upcomingDeadlines: [],
   });
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getDashboardData = async () => {
@@ -37,7 +43,8 @@ const Dashboard = () => {
         });
         const result = await response.json();
         if (result?.data) {
-          setDashboardData(result.data);
+          console.log(result?.data);
+          setDashboardData(result?.data);
         }
       } catch (error) {
         console.log(error);
@@ -50,11 +57,11 @@ const Dashboard = () => {
   }, []);
 
   const formatCurrency = (value) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(value || 0);
   };
 
@@ -101,29 +108,65 @@ const Dashboard = () => {
 
         <div className="dashboard-stats">
           <DashboardGraph data={dashboardData} />
-          
-          <div className="tasks-graph">
-            <h4>Task Distribution</h4>
-            <div className="circle">
-              <div>
-                <span>{dashboardData.totalTasks}</span>
-                <p>Total Tasks</p>
-              </div>
-            </div>
-            <div className="tasks-distribution">
-              <div className="task-data">
-                <p>Completed</p>
-                <span>{dashboardData.completedTasks}</span>
-              </div>
-              <div className="task-data">
-                <p>Pending</p>
-                <span>{dashboardData.pendingTasks}</span>
-              </div>
-              <div className="task-data">
-                <p>Overdue</p>
-                <span>{dashboardData.overdueTasks}</span>
-              </div>
-            </div>
+          <DashboardTasks dashboardData={dashboardData} />
+        </div>
+
+        <div className="upcoming-deadlines">
+          <div className="upcoming-head">
+            <h3>Upcoming Deadlines</h3>
+            <p>
+              {dashboardData?.upcomingDeadlines?.length}{" "}
+              <span>High Priority</span>
+            </p>
+          </div>
+          <div className="deadlines">
+            {isLoading ? (
+              <>
+                <p className="loading">Loading...</p>
+              </>
+            ) : dashboardData?.upcomingDeadlines?.length > 0 ? (
+              dashboardData?.upcomingDeadlines?.map((item) => (
+                <Deadlines key={item._id} data={item} />
+              ))
+            ) : (
+              <p className="loading">No Deadlines Yet</p>
+            )}
+          </div>
+        </div>
+
+        <div className="recent-invoices">
+          <div className="invoices-head">
+            <h3>Recent Invoices</h3>
+            <button onClick={() => navigate("/layout/invoices")}>
+              All Invoices
+            </button>
+          </div>
+          <div className="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Invoice Id</th>
+                  <th>Client</th>
+                  <th>Due Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {isLoading ? (
+                  <>
+                    <p className="loading">Loading...</p>
+                  </>
+                ) : dashboardData?.recentInvoices?.length > 0 ? (
+                  dashboardData?.recentInvoices?.map((item) => (
+                    <RecentInvoices key={item._id} data={item} />
+                  ))
+                ) : (
+                  <p className="loading">No Invoices Yet</p>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

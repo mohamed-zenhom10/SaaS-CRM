@@ -7,7 +7,6 @@ import { success, failed } from "../../assets/utils/Toasts";
 import { projectValidationSchema } from "../../assets/utils/Validations";
 import AddProjectForm from "../../components/AddProjectForm";
 
-const API_BASE_URL = "http://localhost:5000/api/v1";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token") || "";
@@ -35,7 +34,7 @@ const AddProject = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/clients`, {
+        const response = await fetch(`http://localhost:5000/api/v1/clients`, {
           headers: getAuthHeaders(),
         });
 
@@ -85,7 +84,7 @@ const AddProject = () => {
           return;
         }
 
-        const response = await fetch(`${API_BASE_URL}/projects`, {
+        const response = await fetch(`http://localhost:5000/api/v1/projects`, {
           method: "POST",
           headers: getAuthHeaders(),
           body: JSON.stringify({
@@ -135,6 +134,7 @@ const AddProject = () => {
     },
   });
 
+  
   const getFieldError = (fieldName) =>
     formik.touched[fieldName] && formik.errors[fieldName];
 

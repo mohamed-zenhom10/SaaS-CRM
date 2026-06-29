@@ -247,9 +247,16 @@
   height: 180px;
   border-radius: 50%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  font-size: 50px;
+  font-weight: var(--font-weight-bold);
+}
+
+.dashboard .container .dashboard-stats .tasks-graph .circle span {
+  font-size: 14px !important;
 }
 
 .dashboard .container .dashboard-stats .tasks-graph .circle div {
@@ -345,7 +352,231 @@
   margin-bottom: 20px;
 }
 
-/* Responsive Design */
+.dashboard .container .recent-invoices {
+  margin-top: 30px;
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-dark);
+  box-shadow: var(--shadow-sm);
+  transition: 0.3s;
+}
+
+.dashboard .container .recent-invoices:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.dashboard .container .recent-invoices .invoices-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+}
+
+.dashboard .container .recent-invoices .invoices-head h3 {
+  font-size: 20px;
+  font-weight: var(--font-weight-normal);
+}
+
+.dashboard .container .recent-invoices .invoices-head button {
+  border: 1px solid var(--color-border-dark);
+  background-color: var(--white);
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: var(--radius-md);
+}
+
+.dashboard .container .recent-invoices .invoices-head button:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard .container .recent-invoices .table {
+  overflow-x: auto;
+}
+
+.dashboard .container .recent-invoices table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.dashboard .container .recent-invoices table thead tr {
+  background-color: var(--color-surface-hover);
+  text-transform: uppercase;
+}
+
+.dashboard .container .recent-invoices table thead tr th {
+  padding: 20px 25px;
+  color: #737686;
+}
+
+.dashboard .container .recent-invoices table tbody tr td {
+  padding: 15px 25px;
+}
+
+.dashboard .container .recent-invoices table tbody tr td:first-child,
+.dashboard .container .recent-invoices table tbody tr td:nth-child(4) {
+  color: #000;
+  font-weight: var(--font-weight-bold);
+}
+
+.dashboard .container .recent-invoices table tbody tr td:nth-child(3) {
+  font-size: 15px;
+  color: #737686;
+}
+
+.dashboard .container .recent-invoices table tbody tr td:nth-child(5) span {
+  padding: 3px 6px;
+  border-radius: var(--radius-full);
+  text-transform: capitalize;
+}
+
+.dashboard
+  .container
+  .recent-invoices
+  table
+  tbody
+  tr
+  td:nth-child(5).pending
+  span {
+  color: #b88428;
+  background-color: #fff3dc;
+}
+
+.dashboard
+  .container
+  .recent-invoices
+  table
+  tbody
+  tr
+  td:nth-child(5).paid
+  span {
+  color: #2d9c6d;
+  background-color: #e7f8ef;
+}
+
+.dashboard
+  .container
+  .recent-invoices
+  table
+  tbody
+  tr
+  td:nth-child(5).overdue
+  span {
+  color: #d2616a;
+  background-color: #fff0f1;
+}
+
+.dashboard
+  .container
+  .recent-invoices
+  table
+  tbody
+  tr
+  td:nth-child(5).cancelled
+  span {
+  color: #717b8e;
+  background-color: #edf0f5;
+}
+
+.dashboard .container .recent-invoices table tbody tr td:nth-child(6) {
+  text-align: center;
+  font-size: 20px;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.dashboard .container .loading {
+  padding: 20px 25px;
+  font-size: 17px;
+  margin-top: 10px;
+}
+
+.dashboard .container .upcoming-deadlines {
+  margin-top: 30px;
+  border: 1px solid var(--color-border-dark);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--white);
+  padding: 20px 25px;
+  border-radius: var(--radius-md);
+  transition: 0.3s;
+}
+
+.dashboard .container .upcoming-deadlines:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.dashboard .container .upcoming-deadlines .upcoming-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.dashboard .container .upcoming-deadlines .upcoming-head p {
+  color: #ba1a1a;
+  font-weight: var(--font-weight-semibold);
+  position: relative;
+}
+
+.dashboard .container .upcoming-deadlines .upcoming-head p::after {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ba1a1a;
+}
+
+.dashboard .container .upcoming-deadlines .deadline-item {
+  position: relative;
+  background-color: var(--color-surface-hover);
+  padding: 15px 20px;
+  margin: 15px 0;
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+.dashboard .container .upcoming-deadlines .deadline-item::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: #004ac6;
+}
+
+.dashboard .container .upcoming-deadlines .deadline-item:first-child:before {
+  background-color: #ba1a1a;
+}
+
+.dashboard .container .upcoming-deadlines .deadline-item:nth-child(2):before {
+  background-color: #8fa7fe;
+}
+
+.dashboard .container .upcoming-deadlines .deadline-item .data h1 {
+  font-size: 25px;
+}
+
+.dashboard .container .upcoming-deadlines .deadline-item .data p {
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.dashboard .container .upcoming-deadlines .deadline-item .deadline {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 @media (max-width: 1024px) {
   .dashboard .container .dashboard-stats {
     grid-template-columns: 1fr;

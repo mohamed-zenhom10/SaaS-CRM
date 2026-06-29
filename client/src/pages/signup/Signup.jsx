@@ -15,9 +15,6 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
-
-
-
   
   const loginForm = useFormik({
     initialValues: {
@@ -50,7 +47,6 @@ const Signup = () => {
           );
           return;
         }
-        console.log(result);
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", JSON.stringify(result.data));
         success(result.message || "Account created successfully");

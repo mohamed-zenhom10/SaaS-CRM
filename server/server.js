@@ -14,6 +14,9 @@ import DashboardRouter from "./routes/DashboardRoutes.js";
 import GlobalErrorHandling from "./middlewares/GlobalErrorHandling.js";
 import ApiError from "./errors/ApiError.js";
 import qs from "qs";
+import rateLimit from "express-rate-limit";
+import hpp from "hpp";
+import mongoSanitize from "express-mongo-sanitize";
 
 dotenv.config();
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
@@ -22,22 +25,46 @@ database();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Security
+
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 10,
+//   message: "Too many requestes, Please try again later",
+// });
+
+// app.use("/api", limiter);
+
+// app.use(hpp());
+
+// app.use(
+//   mongoSanitize({
+//     replaceWith: "_",
+//     allowDots: true,
+//     sanitizeQuery: false,
+//   }),
+// );
+
 // Built-in Middlewares
-app.use(express.json());
+app.use(
+  express.json({
+    limit: "10kb",
+  }),
+);
 app.use("/images", express.static("images"));
 app.use(cors()); // set connection between backend and frontend
 
-// Read query parameters 
+// Read query parameters
 // GET /api/v1/endpoint?keyword=word&sort=field&page=num&limit=num&fields=field,field,...
-app.set("query parser" , (str) => {
-  return qs.parse(str , {
+app.set("query parser", (str) => {
+  return qs.parse(str, {
     allowDots: true,
     parseArrays: false,
   });
 });
 
 // morgan package
-if(process.env.NODE_ENV === "dev") {
+if (process.env.NODE_ENV === "dev") {
   app.use(morgan("dev"));
   console.log(`Project Mode : ${process.env.NODE_ENV}`);
 }
@@ -49,20 +76,18 @@ app.use("/api/v1/auth", AuthRouter);
 
 app.use("/api/v1/clients", ClientRouter);
 
-app.use("/api/v1/projects" , ProjectRouter);
+app.use("/api/v1/projects", ProjectRouter);
 
-app.use("/api/v1/tasks" , TaskRouter);
+app.use("/api/v1/tasks", TaskRouter);
 
-app.use("/api/v1/invoices" , InvoiceRouter);
+app.use("/api/v1/invoices", InvoiceRouter);
 
-app.use("/api/v1/dashboard" , DashboardRouter);
-
-
+app.use("/api/v1/dashboard", DashboardRouter);
 
 // Handle Undefined Routes
-app.use((req , res , next) => {
-  next(new ApiError(`can't find this route ${req.originalUrl}` , 400));
-})
+app.use((req, res, next) => {
+  next(new ApiError(`can't find this route ${req.originalUrl}`, 400));
+});
 
 // Global Error Handler
 app.use(GlobalErrorHandling);
