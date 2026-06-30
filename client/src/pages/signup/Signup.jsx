@@ -7,15 +7,16 @@ import { useFormik } from "formik";
 
 import { TbRosetteDiscountCheckFilled } from "react-icons/tb";
 
-
-import { success , failed } from "../../assets/utils/Toasts";
+import { success, failed } from "../../assets/utils/Toasts";
 import { signupValidationSchema } from "../../assets/utils/Validations";
 import SignupForm from "../../components/SignupForm";
 import { useNavigate } from "react-router-dom";
 
+import { API_RUL } from "../../api/api";
+
 const Signup = () => {
   const navigate = useNavigate();
-  
+
   const loginForm = useFormik({
     initialValues: {
       name: "",
@@ -28,16 +29,13 @@ const Signup = () => {
 
     onSubmit: async (values) => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/v1/auth/signup/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
+        const response = await fetch(`${API_RUL}/api/v1/auth/signup/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(values),
+        });
         const result = await response.json();
         if (!response.ok) {
           failed(
@@ -70,7 +68,7 @@ const Signup = () => {
           <h1>Create Your Account</h1>
           <p>Precision tracking for modern enterprises.</p>
         </div>
-        <SignupForm loginForm={loginForm}/>
+        <SignupForm loginForm={loginForm} />
       </div>
       <div className="signup-content">
         <div className="trust">

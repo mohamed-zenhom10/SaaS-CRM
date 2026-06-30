@@ -9,6 +9,8 @@ import "./Clients.css";
 import { clientValidationSchema } from "../../assets/utils/Validations";
 import { AddClientForm } from "../../components/LayoutForms";
 
+import { API_RUL } from "../../api/api";
+
 const AddClient = () => {
   const navigate = useNavigate();
 
@@ -59,7 +61,7 @@ const AddClient = () => {
           notes: values.notes.trim(),
         };
 
-        const response = await fetch("http://localhost:5000/api/v1/clients", {
+        const response = await fetch(`${API_RUL}/api/v1/clients`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

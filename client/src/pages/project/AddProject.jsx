@@ -6,7 +6,7 @@ import "./Projects.css";
 import { success, failed } from "../../assets/utils/Toasts";
 import { projectValidationSchema } from "../../assets/utils/Validations";
 import AddProjectForm from "../../components/AddProjectForm";
-
+import { API_RUL } from "../../api/api";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token") || "";
@@ -34,7 +34,7 @@ const AddProject = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/v1/clients`, {
+        const response = await fetch(`${API_RUL}/api/v1/clients`, {
           headers: getAuthHeaders(),
         });
 
@@ -84,7 +84,7 @@ const AddProject = () => {
           return;
         }
 
-        const response = await fetch(`http://localhost:5000/api/v1/projects`, {
+        const response = await fetch(`${API_RUL}/api/v1/projects`, {
           method: "POST",
           headers: getAuthHeaders(),
           body: JSON.stringify({

@@ -3,6 +3,7 @@ import React from "react";
 import { success, failed } from "../assets/utils/Toasts";
 import { getAuthHeaders } from "../assets/utils/Common";
 import { getApiError } from "../assets/utils/Common";
+import { API_RUL } from "../api/api";
 const getStatusLabel = (status) => {
   const labels = {
     pending: "Pending",
@@ -63,7 +64,7 @@ const useTasksActions = ({
       }
 
       const response = await fetch(
-        `http://localhost:5000/api/v1/tasks?${params.toString()}`,
+        `${API_RUL}/api/v1/tasks?${params.toString()}`,
         {
           headers: getAuthHeaders(),
         },
@@ -100,7 +101,7 @@ const useTasksActions = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/tasks/${taskId}`,
+        `${API_RUL}/api/v1/tasks/${taskId}`,
         {
           method: "PUT",
           headers: getAuthHeaders(),
@@ -146,7 +147,7 @@ const useTasksActions = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/tasks/${taskId}`,
+        `${API_RUL}/api/v1/tasks/${taskId}`,
         {
           method: "DELETE",
           headers: getAuthHeaders(),

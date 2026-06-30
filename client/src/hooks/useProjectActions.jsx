@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-
+import { API_RUL } from "../api/api";
 export const useProjectActions = ({
   projects,
   setProjects,
@@ -40,7 +40,7 @@ export const useProjectActions = ({
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/v1/projects?${params.toString()}`,
+          `${API_RUL}/api/v1/projects?${params.toString()}`,
           {
             headers: getAuthHeaders(),
           },
@@ -77,7 +77,7 @@ export const useProjectActions = ({
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/projects/${id}`,
+          `${API_RUL}/api/v1/projects/${id}`,
           {
             method: "PUT",
             headers: getAuthHeaders(),
@@ -136,7 +136,7 @@ export const useProjectActions = ({
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/projects/${id}`,
+          `${API_RUL}/api/v1/projects/${id}`,
           {
             method: "DELETE",
             headers: getAuthHeaders(),

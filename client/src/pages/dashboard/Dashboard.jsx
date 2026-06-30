@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import RecentInvoices from "../../components/RecentInvoices";
 import Deadlines from "../../components/Deadlines";
 
+import { API_RUL } from "../../api/api";
+
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
     totalClients: 0,
@@ -35,7 +37,7 @@ const Dashboard = () => {
     const getDashboardData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/v1/dashboard", {
+        const response = await fetch(`${API_RUL}/api/v1/dashboard`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

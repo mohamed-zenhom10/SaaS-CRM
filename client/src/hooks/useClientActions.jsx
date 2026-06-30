@@ -2,6 +2,7 @@
 import React from "react";
 import { success, failed } from "../assets/utils/Toasts";
 import { PAGE_SIZE } from "../assets/utils/Common";
+import { API_RUL } from "../api/api";
 const useClientActions = ({
   setUpdatingStatus,
   setClients,
@@ -27,7 +28,7 @@ const useClientActions = ({
         throw new Error("Please login to update client status");
       }
 
-      const url = `http://localhost:5000/api/v1/clients/${clientId}`;
+      const url = `${API_RUL}/api/v1/clients/${clientId}`;
       console.log(`Updating client status at: ${url}`);
 
       const response = await fetch(url, {
@@ -96,7 +97,7 @@ const useClientActions = ({
         throw new Error("Please login to delete clients");
       }
 
-      const url = `http://localhost:5000/api/v1/clients/${clientId}`;
+      const url = `${API_RUL}/${clientId}`;
       console.log(`Deleting client at: ${url}`);
 
       const response = await fetch(url, {
@@ -130,8 +131,7 @@ const useClientActions = ({
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Please login");
 
-      const url = `http://localhost:5000/api/v1/clients/${clientId}/details`;
-      console.log(`Fetching details for client ${clientId} from:`, url);
+      const url = `${API_RUL}/${clientId}/details`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -165,7 +165,6 @@ const useClientActions = ({
 
       return result;
     } catch (err) {
-      console.error(`Error fetching details for client ${clientId}:`, err);
       setClients((prevClients) =>
         prevClients.map((client) =>
           client.id === clientId
@@ -208,7 +207,7 @@ const useClientActions = ({
 
       params.append("fields", "name,email,phone,company,status,createdAt");
 
-      const url = `http://localhost:5000/api/v1/clients?${params.toString()}`;
+      const url = `${API_RUL}/api/v1/clients?${params.toString()}`;
       console.log("Fetching clients from:", url);
 
       const response = await fetch(url, {

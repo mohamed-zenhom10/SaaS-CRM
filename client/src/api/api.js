@@ -1,0 +1,1 @@
+export const API_RUL = import.meta.env.VITE_API_URL

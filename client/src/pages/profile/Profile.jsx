@@ -5,6 +5,8 @@ import "./Profile.css";
 import { FaPen } from "react-icons/fa";
 import user_profile_image from "../../assets/images/default-user.jpg";
 
+import { API_RUL } from "../../api/api";
+
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import {
@@ -53,7 +55,7 @@ const Profile = () => {
       setIsDeleting(true);
 
       const response = await fetch(
-        `http://localhost:5000/api/v1/user/${userId}`,
+        `${API_RUL}/api/v1/user/${userId}`,
         {
           method: "DELETE",
           headers: {
@@ -113,7 +115,7 @@ const Profile = () => {
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/v1/user/${userId}`,
+          `${API_RUL}/api/v1/user/${userId}`,
           {
             method: "PUT",
             headers: {
@@ -170,7 +172,7 @@ const Profile = () => {
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/v1/user/pass/${userId}`,
+          `${API_RUL}/api/v1/user/pass/${userId}`,
           {
             method: "PUT",
             headers: {
@@ -225,7 +227,7 @@ const Profile = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://localhost:5000/api/v1/auth/set-user-image",
+        `${API_RUL}/api/v1/auth/set-user-image`,
         {
           method: "POST",
           headers: {
@@ -280,7 +282,7 @@ const Profile = () => {
             <div className="image">
               <div className="img-box">
                 <img
-                  src={`${userData?.profileImage ? `http://localhost:5000/images/${userData.profileImage}` : `${user_profile_image}`}`}
+                  src={`${userData?.profileImage ? `${API_RUL}/images/${userData.profileImage}` : `${user_profile_image}`}`}
                   alt="user image"
                 />
                 <label htmlFor="profile-image">

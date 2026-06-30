@@ -4,6 +4,7 @@ import { success, failed } from "../assets/utils/Toasts";
 import { getAuthHeaders } from "../assets/utils/Common";
 import { getApiError } from "../assets/utils/Common";
 import { PAGE_SIZE } from "../assets/utils/Common";
+import { API_RUL } from "../api/api";
 const useInvoiceActions = ({
   STATUS_OPTIONS,
   setDeletingInvoiceId,
@@ -56,7 +57,7 @@ const useInvoiceActions = ({
       }
 
       const response = await fetch(
-        `http://localhost:5000/api/v1/invoices?${params.toString()}`,
+        `${API_RUL}/api/v1/invoices?${params.toString()}`,
         {
           headers: getAuthHeaders(),
         },
@@ -93,7 +94,7 @@ const useInvoiceActions = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/invoices/${invoiceId}`,
+        `${API_RUL}/api/v1/invoices/${invoiceId}`,
         {
           method: "PUT",
           headers: getAuthHeaders(),
@@ -141,7 +142,7 @@ const useInvoiceActions = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/invoices/${invoiceId}`,
+        `${API_RUL}/api/v1/invoices/${invoiceId}`,
         {
           method: "DELETE",
           headers: getAuthHeaders(),

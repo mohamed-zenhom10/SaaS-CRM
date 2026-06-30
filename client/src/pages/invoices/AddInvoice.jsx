@@ -8,6 +8,7 @@ import { invoiceValidationSchema } from "../../assets/utils/Validations";
 import AddInvoiceForm from "../../components/AddInvoiceForm";
 import { getAuthHeaders } from "../../assets/utils/Common";
 
+import { API_RUL } from "../../api/api";
 
 const getApiError = (payload) =>
   payload?.errors?.[0]?.msg ||
@@ -27,7 +28,7 @@ const AddInvoice = () => {
   useEffect(() => {
     const loadClients = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/v1/clients?limit=1000`, {
+        const response = await fetch(`${API_RUL}/api/v1/clients?limit=1000`, {
           headers: getAuthHeaders(),
         });
 
@@ -50,7 +51,7 @@ const AddInvoice = () => {
 
     const loadProjects = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/v1/projects?limit=1000`, {
+        const response = await fetch(`${API_RUL}/api/v1/projects?limit=1000`, {
           headers: getAuthHeaders(),
         });
 
@@ -107,7 +108,7 @@ const AddInvoice = () => {
           user: userId,
         };
 
-        const response = await fetch(`http://localhost:5000/api/v1/invoices`, {
+        const response = await fetch(`${API_RUL}/api/v1/invoices`, {
           method: "POST",
           headers: getAuthHeaders(),
           body: JSON.stringify(invoiceData),

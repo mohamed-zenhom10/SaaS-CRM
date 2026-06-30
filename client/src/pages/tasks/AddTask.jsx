@@ -8,6 +8,7 @@ import { getAuthHeaders } from "../../assets/utils/Common";
 import { getApiError } from "../../assets/utils/Common";
 import { taskValidationSchema } from "../../assets/utils/Validations";
 import TasksFrom from "../../components/TasksFrom";
+import { API_RUL } from "../../api/api";
 
 const getToday = () => new Date().toISOString().split("T")[0];
 
@@ -48,7 +49,7 @@ const AddTask = () => {
           user: userId,
         };
 
-        const response = await fetch(`http://localhost:5000/api/v1/tasks`, {
+        const response = await fetch(`${API_RUL}/api/v1/tasks`, {
           method: "POST",
           headers: getAuthHeaders(),
           body: JSON.stringify(taskData),
@@ -97,7 +98,7 @@ const AddTask = () => {
     const loadProjects = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/projects?limit=1000`,
+          `${API_RUL}/api/v1/projects?limit=1000`,
           {
             headers: getAuthHeaders(),
           },

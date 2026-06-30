@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { success, failed } from "../../assets/utils/Toasts";
 import { loginValidationSchema } from "../../assets/utils/Validations";
 import LoginForm from "../../components/LoginForm";
+import { API_RUL } from "../../api/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/v1/auth/login/",
+          `${API_RUL}/api/v1/auth/login/`,
           {
             method: "POST",
             headers: {
