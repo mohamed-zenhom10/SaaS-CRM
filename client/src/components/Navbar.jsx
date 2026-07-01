@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/set-state-in-effect */
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
@@ -9,13 +10,22 @@ import { FaBars } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { success } from "../assets/utils/Toasts";
+import { API_RUL } from "../api/api";
+import SearchData from "./SearchData";
+import Notifications from "./Notifications";
 
 const Navbar = () => {
   const [serach, setSearch] = useState("");
 
+  const [serachData, setSearchData] = useState([]);
+
   const [userData, setUserData] = useState();
 
   const [displaySearch, setDisplaySearch] = useState(false);
+
+  const [loading, setIsLoading] = useState(false);
+
+  const [openNotifications, setOpenNotifications] = useState(false);
 
   const navigate = useNavigate();
 
@@ -32,21 +42,77 @@ const Navbar = () => {
       setUserData(user);
     }
   }, []);
+
+  useEffect(() => {
+    if (!serach.trim()) {
+      setSearchData([]);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+
+    const handleSearch = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `${API_RUL}/api/v1/clients?keyword=${serach}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await response.json();
+        console.log("Number of Values => ", data.data.length);
+        console.log("Search Data => ", data.data);
+        if (data?.data) {
+          setSearchData(data?.data);
+        } else {
+          setSearchData([]);
+        }
+        console.log("State =>", serachData);
+      } catch (error) {
+        setSearchData([]);
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    handleSearch();
+  }, [serach]);
+
   return (
     <header className="header">
       <div className={`input ${displaySearch ? "display" : ""}`}>
         <IoSearchSharp />
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search for clients..."
           value={serach}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <div className={`search-result ${serach.length > 0 ? "display" : ""}`}>
+          {loading ? (
+            <p className="searching">Searching...</p>
+          ) : serachData.length > 0 ? (
+            serachData.map((item) => <SearchData data={item} key={item._id} />)
+          ) : (
+            <p
+              className={`no-data-matches ${serach.length > 0 ? "display" : ""}`}
+            >
+              No Data Matches...
+            </p>
+          )}
+        </div>
       </div>
       <div className="data">
         <div className="icons">
-          <div className="icon">
-            <FaBell />
+          <div className="icon notifications">
+            <FaBell onClick={() => setOpenNotifications(!openNotifications)} />
+            {openNotifications ? <Notifications /> : <></>}
           </div>
           <div className="icon">
             <IoSettings />
@@ -65,7 +131,7 @@ const Navbar = () => {
           </div>
           <div className="user-img">
             <img
-              src={`${userData?.profileImage ? `http://localhost:5000/images/${userData.profileImage}` : default_user_img}`}
+              src={`${userData?.profileImage ? `${API_RUL}/images/${userData.profileImage}` : default_user_img}`}
               alt="user image"
             />
           </div>

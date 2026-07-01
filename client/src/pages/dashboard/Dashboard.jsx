@@ -45,7 +45,6 @@ const Dashboard = () => {
         });
         const result = await response.json();
         if (result?.data) {
-          console.log(result?.data);
           setDashboardData(result?.data);
         }
       } catch (error) {
@@ -158,14 +157,20 @@ const Dashboard = () => {
               <tbody>
                 {isLoading ? (
                   <>
-                    <p className="loading">Loading...</p>
+                    <tr>
+                      <td colSpan={5} className="loading">
+                        Loading...
+                      </td>
+                    </tr>
                   </>
                 ) : dashboardData?.recentInvoices?.length > 0 ? (
                   dashboardData?.recentInvoices?.map((item) => (
                     <RecentInvoices key={item._id} data={item} />
                   ))
                 ) : (
-                  <p className="loading">No Invoices Yet</p>
+                  <tr>
+                    <td className="loading">No Invoices Yet</td>
+                  </tr>
                 )}
               </tbody>
             </table>

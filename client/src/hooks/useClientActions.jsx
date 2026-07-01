@@ -29,7 +29,6 @@ const useClientActions = ({
       }
 
       const url = `${API_RUL}/api/v1/clients/${clientId}`;
-      console.log(`Updating client status at: ${url}`);
 
       const response = await fetch(url, {
         method: "PUT",
@@ -97,8 +96,7 @@ const useClientActions = ({
         throw new Error("Please login to delete clients");
       }
 
-      const url = `${API_RUL}/${clientId}`;
-      console.log(`Deleting client at: ${url}`);
+      const url = `${API_RUL}/api/v1/clients/${clientId}`;
 
       const response = await fetch(url, {
         method: "DELETE",
@@ -131,7 +129,7 @@ const useClientActions = ({
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Please login");
 
-      const url = `${API_RUL}/${clientId}/details`;
+      const url = `${API_RUL}/api/v1/clients/${clientId}`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -147,7 +145,6 @@ const useClientActions = ({
       }
 
       const result = await response.json();
-      console.log("Client details response:", result);
 
       const stats = result.stats || {};
 
@@ -208,7 +205,6 @@ const useClientActions = ({
       params.append("fields", "name,email,phone,company,status,createdAt");
 
       const url = `${API_RUL}/api/v1/clients?${params.toString()}`;
-      console.log("Fetching clients from:", url);
 
       const response = await fetch(url, {
         method: "GET",

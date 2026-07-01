@@ -12,17 +12,17 @@ const CreateClientValidator = [
     .trim()
     .notEmpty()
     .withMessage("Name is required")
-    .isLength({ min: 3, max: 15 })
-    .withMessage("Name length must between 3 and 15"),
+    .isLength({ min: 3, max: 30 })
+    .withMessage("Name length must between 3 and 30"),
   check("email")
     .notEmpty()
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Invalid email address")
-    .isLength({ min: 5, max: 30 })
-    .withMessage("Email length is between 5 and 30"),
+    .isLength({ min: 5, max: 70 })
+    .withMessage("Email length is between 5 and 70"),
   check("phone")
-    .optional()
+    .optional({ values: "falsy" })
     .isMobilePhone()
     .withMessage("Invalid mobile phone number"),
   check("company").optional(),

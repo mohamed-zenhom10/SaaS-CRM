@@ -17,6 +17,7 @@ import qs from "qs";
 import rateLimit from "express-rate-limit";
 import hpp from "hpp";
 import mongoSanitize from "express-mongo-sanitize";
+import "./jobs/deadlineCron.js";
 
 dotenv.config();
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
@@ -25,7 +26,7 @@ database();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Security
+/* Security */
 
 // const limiter = rateLimit({
 //   windowMs: 15 * 60 * 1000,
@@ -52,7 +53,9 @@ app.use(
   }),
 );
 app.use("/images", express.static("images"));
-app.use(cors()); // set connection between backend and frontend
+
+// set connection between backend and frontend
+app.use(cors()); 
 
 // Read query parameters
 // GET /api/v1/endpoint?keyword=word&sort=field&page=num&limit=num&fields=field,field,...

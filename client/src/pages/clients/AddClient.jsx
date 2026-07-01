@@ -1,10 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { success, failed } from "../../assets/utils/Toasts";
-import {
-  FiChevronRight,
-  FiUserPlus,
-} from "react-icons/fi";
+import { FiChevronRight, FiUserPlus } from "react-icons/fi";
 import "./Clients.css";
 import { clientValidationSchema } from "../../assets/utils/Validations";
 import { AddClientForm } from "../../components/LayoutForms";
@@ -61,6 +58,8 @@ const AddClient = () => {
           notes: values.notes.trim(),
         };
 
+        console.log("client data ====> ", clientData);
+
         const response = await fetch(`${API_RUL}/api/v1/clients`, {
           method: "POST",
           headers: {
@@ -71,6 +70,7 @@ const AddClient = () => {
         });
 
         const data = await response.json();
+        console.log("data ===>" , data);
 
         if (!response.ok) {
           if (response.status === 400) {
@@ -146,8 +146,7 @@ const AddClient = () => {
           </div>
         </div>
 
-        <AddClientForm formik={formik} getFieldError={getFieldError}/>
-
+        <AddClientForm formik={formik} getFieldError={getFieldError} />
       </div>
     </section>
   );

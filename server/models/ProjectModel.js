@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
-  title : {
+  title: {
     type: String,
     required: true,
     minlength: 5,
-    maxlength: 50
+    maxlength: 50,
   },
   description: {
     type: String,
@@ -15,22 +15,26 @@ const ProjectSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["pending" , "completed" , "overdue" , "cancelld"],
+    enum: ["pending", "completed", "overdue", "cancelld"],
     default: "pending",
   },
   deadline: Date,
   client: {
     type: mongoose.Schema.ObjectId,
     ref: "Client",
-    required: true
+    required: true,
+  },
+  reminderSent: {
+    type: Boolean,
+    default: false,
   },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const ProjectModel = mongoose.model("Project" , ProjectSchema);
+const ProjectModel = mongoose.model("Project", ProjectSchema);
 
 export default ProjectModel;
