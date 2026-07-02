@@ -11,6 +11,7 @@ import DashboardTasks from "../../components/DashboardTasks";
 import { useNavigate } from "react-router-dom";
 import RecentInvoices from "../../components/RecentInvoices";
 import Deadlines from "../../components/Deadlines";
+import { exportDashboardPDF } from "../../assets/utils/functions";
 
 import { API_RUL } from "../../api/api";
 
@@ -76,7 +77,9 @@ const Dashboard = () => {
           </div>
           <div className="dashboard-btns">
             <button>Last 30 days</button>
-            <button>Export PDF</button>
+            <button onClick={() => exportDashboardPDF(dashboardData)}>
+              Export PDF
+            </button>
           </div>
         </div>
 
@@ -130,7 +133,7 @@ const Dashboard = () => {
                 <Deadlines key={item._id} data={item} />
               ))
             ) : (
-              <p className="loading">No Deadlines Yet</p>
+              <p>No Upcoming Deadlines</p>
             )}
           </div>
         </div>
@@ -143,37 +146,29 @@ const Dashboard = () => {
             </button>
           </div>
           <div className="table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Invoice Id</th>
-                  <th>Client</th>
-                  <th>Due Date</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {isLoading ? (
-                  <>
-                    <tr>
-                      <td colSpan={5} className="loading">
-                        Loading...
-                      </td>
-                    </tr>
-                  </>
-                ) : dashboardData?.recentInvoices?.length > 0 ? (
-                  dashboardData?.recentInvoices?.map((item) => (
-                    <RecentInvoices key={item._id} data={item} />
-                  ))
-                ) : (
+            {isLoading ? (
+              <p>Loading....</p>
+            ) : dashboardData?.recentInvoices?.length > 0 ? (
+              <table>
+                <thead>
                   <tr>
-                    <td className="loading">No Invoices Yet</td>
+                    <th>Invoice Id</th>
+                    <th>Client</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {dashboardData?.recentInvoices?.map((item) => (
+                    <RecentInvoices key={item._id} data={item} />
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="no-data">No Invoices Yet</p>
+            )}
           </div>
         </div>
       </div>

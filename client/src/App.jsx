@@ -26,38 +26,54 @@ import Profile from "./pages/profile/Profile";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Error from "./components/Error";
+import Settings from "./pages/settings/Settings";
+import { useState } from "react";
+import { ThemeContext } from "./context/themeContext";
+import { useEffect } from "react";
 
 const App = () => {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   return (
     <>
       <ToastContainer />
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/error" element={<Error />} />
 
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/error" element={<Error />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/layout" element={<Layout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="dashboard" element={<Dashboard />} />
 
-        <Route element={<ProtectedRoute />}>
-          <Route path="/layout" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="dashboard" element={<Dashboard />} />
+              <Route path="clients" element={<Clients />} />
+              <Route path="clients/add-new-client" element={<AddClient />} />
 
-            <Route path="clients" element={<Clients />} />
-            <Route path="clients/add-new-client" element={<AddClient />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="projects/add-new-project" element={<AddProject />} />
 
-            <Route path="projects" element={<Projects />} />
-            <Route path="projects/add-new-project" element={<AddProject />} />
+              <Route path="tasks" element={<Tasks />} />
+              <Route path="tasks/add-new-task" element={<AddTask />} />
 
-            <Route path="tasks" element={<Tasks />} />
-            <Route path="tasks/add-new-task" element={<AddTask />} />
+              <Route path="invoices" element={<Invoices />} />
+              <Route path="invoices/add-new-invoice" element={<AddInvoice />} />
 
-            <Route path="invoices" element={<Invoices />} />
-            <Route path="invoices/add-new-invoice" element={<AddInvoice />} />
+              <Route path="profile" element={<Profile />} />
 
-            <Route path="profile" element={<Profile />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </ThemeContext.Provider>
     </>
   );
 };

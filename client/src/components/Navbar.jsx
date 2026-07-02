@@ -27,6 +27,10 @@ const Navbar = () => {
 
   const [openNotifications, setOpenNotifications] = useState(false);
 
+  const [notifications, setNotifications] = useState([]);
+
+  const [unReads, setUnReads] = useState(0);
+
   const navigate = useNavigate();
 
   const logout = () => {
@@ -35,6 +39,33 @@ const Navbar = () => {
     navigate("/");
     success("User logged out successfully");
   };
+
+  useEffect(() => {
+    const getNotificatiosn = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(`${API_RUL}/api/v1/notifications`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        const result = await response.json();
+        if (result?.data) {
+          setNotifications(result?.data);
+        }
+
+        if (result?.unReadNotes) {
+          setUnReads(result?.unReadNotes);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getNotificatiosn();
+  }, []);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -66,14 +97,11 @@ const Navbar = () => {
           },
         );
         const data = await response.json();
-        console.log("Number of Values => ", data.data.length);
-        console.log("Search Data => ", data.data);
         if (data?.data) {
           setSearchData(data?.data);
         } else {
           setSearchData([]);
         }
-        console.log("State =>", serachData);
       } catch (error) {
         setSearchData([]);
         console.log(error);
@@ -83,6 +111,31 @@ const Navbar = () => {
     };
     handleSearch();
   }, [serach]);
+
+  const handleMarkAsRead = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await fetch(`${API_RUL}/api/v1/notifications/read`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUnReads(0);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleNotificationClick = async () => {
+    const newState = !openNotifications;
+
+    setOpenNotifications(newState);
+
+    if (newState && unReads > 0) {
+      await handleMarkAsRead();
+    }
+  };
 
   return (
     <header className="header">
@@ -111,11 +164,12 @@ const Navbar = () => {
       <div className="data">
         <div className="icons">
           <div className="icon notifications">
-            <FaBell onClick={() => setOpenNotifications(!openNotifications)} />
-            {openNotifications ? <Notifications /> : <></>}
+            {unReads > 0 ? <span className="red-dot"></span> : <></>}
+            <FaBell onClick={handleNotificationClick} />
+            {openNotifications ? <Notifications data={notifications} /> : <></>}
           </div>
           <div className="icon">
-            <IoSettings />
+            <IoSettings onClick={() => navigate("/layout/settings")} />
           </div>
           <div className="icon">
             <MdOutlineLogout onClick={logout} />

@@ -1,0 +1,86 @@
+.settings .container .settings-header h1 {
+  font-size: 35px;
+}
+
+.settings .container .settings-header p {
+  margin-top: 15px;
+}
+
+.settings .container .apearance {
+  background-color: var(--white);
+  padding: 20px 25px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-dark);
+  box-shadow: var(--shadow-sm);
+  margin-top: 30px;
+  width: 50%;
+  transition: 0.3s all ease;
+}
+
+.settings .container .apearance:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.settings .container .apearance p {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.settings .container .apearance .buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.settings .container .apearance .buttons button {
+  flex: 1;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+}
+
+.settings .container .apearance .buttons button.active {
+  border: 2px solid var(--color-primary);
+}
+
+.settings .container .apearance .buttons button .icon svg {
+  font-size: 50px;
+}
+
+.settings .container .apearance .buttons button p {
+  font-size: 20px;
+  font-weight: var(--font-weight-medium);
+}
+
+.settings .container .apearance .buttons button .light {
+  background-color: var(--white);
+}
+
+.settings .container .apearance .buttons button.dark {
+  background-color: var(--color-dark-blue);
+  color: var(--white);
+}
+
+.settings .container .apearance .buttons button.dark p {
+  color: var(--white);
+}
+
+@media (max-width: 992px) {
+  .settings .container .apearance {
+    width: 100%;
+  }
+}
+
+@media (max-width: 468px) {
+  .settings .container .apearance .buttons button {
+    padding: 15px;
+  }
+  .settings .container .apearance .buttons button p {
+    font-size: 17px;
+  }
+  .settings .container .apearance .buttons button .icon svg {
+    font-size: 40px;
+  }
+}

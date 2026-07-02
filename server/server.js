@@ -11,6 +11,7 @@ import ProjectRouter from "./routes/ProjectRoutes.js";
 import TaskRouter from "./routes/TaskRoutes.js";
 import InvoiceRouter from "./routes/InvoiceRoutes.js";
 import DashboardRouter from "./routes/DashboardRoutes.js";
+import NotificationRouter from "./routes/NotificationRoutes.js";
 import GlobalErrorHandling from "./middlewares/GlobalErrorHandling.js";
 import ApiError from "./errors/ApiError.js";
 import qs from "qs";
@@ -18,6 +19,7 @@ import rateLimit from "express-rate-limit";
 import hpp from "hpp";
 import mongoSanitize from "express-mongo-sanitize";
 import "./jobs/deadlineCron.js";
+import "./jobs/tasksDeadline.js";
 
 dotenv.config();
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
@@ -55,7 +57,7 @@ app.use(
 app.use("/images", express.static("images"));
 
 // set connection between backend and frontend
-app.use(cors()); 
+app.use(cors());
 
 // Read query parameters
 // GET /api/v1/endpoint?keyword=word&sort=field&page=num&limit=num&fields=field,field,...
@@ -86,6 +88,8 @@ app.use("/api/v1/tasks", TaskRouter);
 app.use("/api/v1/invoices", InvoiceRouter);
 
 app.use("/api/v1/dashboard", DashboardRouter);
+
+app.use("/api/v1/notifications", NotificationRouter);
 
 // Handle Undefined Routes
 app.use((req, res, next) => {
