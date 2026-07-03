@@ -67,6 +67,8 @@ const Dashboard = () => {
     }).format(value || 0);
   };
 
+  console.log(dashboardData);
+
   return (
     <section className="dashboard">
       <div className="container">
@@ -147,7 +149,7 @@ const Dashboard = () => {
           </div>
           <div className="table">
             {isLoading ? (
-              <p>Loading....</p>
+              <p className="loading">Loading....</p>
             ) : dashboardData?.recentInvoices?.length > 0 ? (
               <table>
                 <thead>
