@@ -127,7 +127,7 @@ const Projects = () => {
         <div className="projects-page__header">
           <div>
             <p className="projects-page__eyebrow">Workspace</p>
-            <h1>Projects</h1>
+            <h1 className="p-title">Projects</h1>
             <p>Manage and track your ongoing projects.</p>
           </div>
 

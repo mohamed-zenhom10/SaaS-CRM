@@ -17,6 +17,10 @@
   transition: 0.3s all ease;
 }
 
+.settings .container .apearance h3 {
+  color: #191c1d;
+}
+
 .settings .container .apearance:hover {
   box-shadow: var(--shadow-lg);
 }

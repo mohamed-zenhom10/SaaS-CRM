@@ -17,7 +17,6 @@ import ApiError from "./errors/ApiError.js";
 import qs from "qs";
 import rateLimit from "express-rate-limit";
 import hpp from "hpp";
-import mongoSanitize from "express-mongo-sanitize";
 import "./jobs/deadlineCron.js";
 import "./jobs/tasksDeadline.js";
 
@@ -28,25 +27,16 @@ database();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-/* Security */
+// Security
 
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   max: 10,
-//   message: "Too many requestes, Please try again later",
-// });
-
-// app.use("/api", limiter);
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: "Too many requestes, Please try again later",
+});
+app.use("/api", limiter);
 
 // app.use(hpp());
-
-// app.use(
-//   mongoSanitize({
-//     replaceWith: "_",
-//     allowDots: true,
-//     sanitizeQuery: false,
-//   }),
-// );
 
 // Built-in Middlewares
 app.use(
@@ -99,6 +89,8 @@ app.use((req, res, next) => {
 // Global Error Handler
 app.use(GlobalErrorHandling);
 
+
+// Start Point
 app.listen(PORT, () => {
   console.log(`The Server is running on http://localhost:${PORT}`);
 });

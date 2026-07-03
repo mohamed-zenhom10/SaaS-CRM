@@ -28,6 +28,10 @@
   margin: 0;
 }
 
+.p-title {
+  color: #191c1d !important;
+}
+
 .projects-page__header p {
   color: var(--color-text-secondary);
   margin: 0;
@@ -57,7 +61,6 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Toolbar */
 .projects-toolbar {
   display: flex;
   justify-content: space-between;
@@ -319,11 +322,15 @@
   color: var(--color-text-secondary);
 }
 
-/* Project cells */
+
 .project-title-cell {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.project-title-cell strong {
+  color: var(--number);
 }
 
 .project-title-cell__marker {

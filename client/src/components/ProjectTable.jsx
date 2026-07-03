@@ -123,7 +123,7 @@ const ProjectTable = ({
 
                   <td>
                     <div className="project-actions">
-                      <button
+                      {/* <button
                         type="button"
                         className="project-action-button project-action-button--edit"
                         onClick={() => {
@@ -132,7 +132,7 @@ const ProjectTable = ({
                         title="Edit project"
                       >
                         <FiEdit />
-                      </button>
+                      </button> */}
                       <button
                         type="button"
                         className="project-action-button project-action-button--delete"

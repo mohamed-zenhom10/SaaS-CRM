@@ -139,6 +139,7 @@
   font-size: 15px;
   border-radius: var(--radius-md);
   padding: 0 10px 0 40px;
+  color: var(--number);
 }
 
 .layout .header .input svg {
@@ -149,6 +150,7 @@
   transform: translateY(-50%);
   font-size: 18px;
   z-index: 100;
+  color: var(--number);
 }
 
 .layout .header .input .search-result {
@@ -340,6 +342,7 @@
 
 .layout .header .data .user .user-data h3 {
   font-size: 17px;
+  color: #191c1d;
 }
 
 .layout .header .data .user .user-data p {

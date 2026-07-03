@@ -103,6 +103,7 @@
 
 .signup-section .form form .input-box label {
   font-weight: var(--font-weight-semibold);
+  color: var(--heading);
 }
 
 .signup-section .form form button[type="submit"] {

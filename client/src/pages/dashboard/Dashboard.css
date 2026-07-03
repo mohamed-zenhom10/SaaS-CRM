@@ -36,7 +36,7 @@
 .dashboard .container .dashboard-header .dashboard-btns button:first-child {
   background-color: var(--white);
   border: 1px solid var(--color-border-dark);
-  color: var(--heading);
+  color: #000;
 }
 
 .dashboard
@@ -46,6 +46,7 @@
   button:first-child:hover {
   background-color: var(--color-background-secondary);
   border-color: var(--link);
+  color: #fff;
 }
 
 .dashboard .container .dashboard-header .dashboard-btns button:last-child {
@@ -123,7 +124,7 @@
   font-size: 42px;
   font-weight: var(--font-weight-bold);
   margin: 8px 0;
-  color: var(--heading);
+  color: #000;
 }
 
 .dashboard .container .dashbaord-numbers .dash-box .info {
@@ -183,18 +184,14 @@
   font-weight: var(--font-weight-bold);
 }
 
-.dashboard .container .dashboard-stats .tasks-graph .circle span {
-  font-size: 14px !important;
-}
-
 .dashboard .container .dashboard-stats .tasks-graph .circle div {
   text-align: center;
 }
 
 .dashboard .container .dashboard-stats .tasks-graph .circle span {
-  font-size: 38px;
+  font-size: 14px;
   font-weight: var(--font-weight-bold);
-  color: var(--heading);
+  color: black;
   display: block;
 }
 
@@ -225,7 +222,7 @@
   font-weight: var(--font-weight-normal);
   position: relative;
   padding-left: 30px;
-  color: var(--heading);
+  color: black;
   margin: 0;
 }
 
@@ -303,6 +300,7 @@
 .dashboard .container .recent-invoices .invoices-head h3 {
   font-size: 20px;
   font-weight: normal;
+  color: #000;
 }
 
 .dashboard .container .recent-invoices .invoices-head button {
@@ -447,6 +445,7 @@
 
 .dashboard .container .upcoming-deadlines .upcoming-head h3 {
   font-weight: normal;
+  color: #000;
 }
 
 .dashboard .container .upcoming-deadlines .upcoming-head p {
@@ -512,6 +511,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  color: var(--number);
 }
 
 @media (max-width: 1024px) {

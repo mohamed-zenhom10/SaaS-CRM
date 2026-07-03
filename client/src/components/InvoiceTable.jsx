@@ -135,7 +135,7 @@ const InvoiceTable = ({
 
               <td>
                 <div className="invoice-actions">
-                  <button
+                  {/* <button
                     type="button"
                     className="invoice-action-button invoice-action-button--edit"
                     onClick={() => {
@@ -146,7 +146,7 @@ const InvoiceTable = ({
                     title="Edit invoice"
                   >
                     <FiEdit />
-                  </button>
+                  </button> */}
                   <button
                     type="button"
                     className="invoice-action-button invoice-action-button--delete"

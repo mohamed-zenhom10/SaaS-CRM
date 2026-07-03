@@ -81,6 +81,7 @@
 
 .login-section .form form .input-box label {
   font-weight: var(--font-weight-semibold);
+  color: var(--heading);
 }
 
 .login-section .form form button[type="submit"] {

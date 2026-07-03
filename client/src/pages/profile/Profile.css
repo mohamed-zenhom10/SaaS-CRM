@@ -236,6 +236,10 @@
   width: fit-content;
 }
 
+input,label {
+  color: var(--number);
+}
+
 @media (max-width: 768px) {
   .delete-account {
     flex-direction: column;

@@ -116,7 +116,7 @@ const TasksTable = ({
                 </td>
                 <td>
                   <div className="task-actions">
-                    <button
+                    {/* <button
                       type="button"
                       className="task-action-button task-action-button--edit"
                       onClick={() => {
@@ -125,7 +125,7 @@ const TasksTable = ({
                       title="Edit task"
                     >
                       <FiEdit />
-                    </button>
+                    </button> */}
                     <button
                       type="button"
                       className="task-action-button task-action-button--delete"
