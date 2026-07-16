@@ -290,6 +290,7 @@
 
 .layout .header .data .icons .icon.notifications .notifications-popup {
   position: absolute;
+  z-index: 9999;
   left: -100px;
   top: calc(100% + 15px);
   background-color: var(--white);

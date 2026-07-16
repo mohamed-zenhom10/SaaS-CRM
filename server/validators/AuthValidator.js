@@ -14,8 +14,8 @@ const SignupValidator = [
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Invalid email address")
-    .isLength({ min: 7, max: 30 })
-    .withMessage("Email lenght must be between 7 and 30")
+    .isLength({ min: 7, max: 100 })
+    .withMessage("Email lenght must be between 7 and 100")
     .custom(async (value) => {
       const user = await UserModel.findOne({ email: value });
       if (user) throw new Error("User with this email is already exist");

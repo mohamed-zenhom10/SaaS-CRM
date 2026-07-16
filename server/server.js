@@ -29,12 +29,12 @@ const PORT = process.env.PORT || 3000;
 
 // Security
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: "Too many requestes, Please try again later",
-});
-app.use("/api", limiter);
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+//   message: "Too many requestes, Please try again later",
+// });
+// app.use("/api", limiter);
 
 // app.use(hpp());
 

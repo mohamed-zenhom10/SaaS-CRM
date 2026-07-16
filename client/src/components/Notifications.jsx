@@ -7,9 +7,11 @@ const Notifications = ({ data }) => {
     <div className="notifications-popup">
       <h3>Notifications 🔔</h3>
       <section className="notifications-list">
-        {data.map((item) => (
-          <NotificationItem data={item} key={item?._id} />
-        ))}
+        {data.length > 0 ? (
+          data.map((item) => <NotificationItem data={item} key={item?._id} />)
+        ) : (
+          <p style={{marginTop: "5px"}}>No Notifications Yet</p>
+        )}
       </section>
     </div>
   );

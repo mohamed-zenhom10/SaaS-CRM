@@ -116,6 +116,9 @@ const AddInvoice = () => {
 
         const payload = await response.json();
 
+        console.log(response);
+        console.log(payload);
+
         if (!response.ok) {
           if (response.status === 400) {
             if (payload.message?.includes("invoiceNumber")) {
