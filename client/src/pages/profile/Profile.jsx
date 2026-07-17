@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { FaPen } from "react-icons/fa";
-import user_profile_image from "../../assets/images/default-user.jpg";
+import user_profile_image from "../../assets/images/default-user.png";
 
 import { API_RUL } from "../../api/api";
 

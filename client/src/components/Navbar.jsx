@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaBell } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
-import default_user_img from "../assets/images/default-user.jpg";
+import default_user_img from "../assets/images/default-user.png";
 import { FaBars } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";

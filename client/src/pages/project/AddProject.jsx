@@ -40,6 +40,8 @@ const AddProject = () => {
 
         const payload = await response.json();
 
+        console.log(payload);
+
         if (!response.ok) {
           throw new Error(getApiError(payload));
         }
